@@ -6,23 +6,22 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
-    <div style="height:400px;"
-        class="container d-flex flex-column justify-content-center align-items-center">
+    <div style="height:600px;"
+        class="container d-flex flex-column justify-content-center align-items-center position-relative">
 
         <h1>Currency Converter</h1>
         <div style="width:1000px; height:150px;"
-        class="d-flex border align-items-center">
+        class="d-flex row border rounded-lg align-items-center">
 
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column col-3">
                 <label for="amount" class="ml-3">Amount to convert:</label>
                 <input class="w-75 mx-3" type="number" id="amount" class="w-50"/>
             </div>
             
-            <div class="d-flex flex-column mr-3">
-                <label for="currency1">From: choose a Currency</label>
+            <div class="d-flex flex-column col mr-3">
+                <label for="currency1">From:</label>
                 <select name="currencies" id="currency1">
                     <option value="vnd">VND</option>
                     <option value="krw">KRW</option>
@@ -31,8 +30,8 @@
                     <option value="eur">EUR</option>
                 </select>
             </div>
-            <div class="d-flex flex-column mr-3">
-                <label for="currency2">To: choose a Currency</label>
+            <div class="d-flex flex-column col mr-3">
+                <label for="currency2">To:</label>
                 <select name="currencies" id="currency2">
                     <option value="vnd">VND</option>
                     <option value="krw">KRW</option>
@@ -41,15 +40,17 @@
                     <option value="eur">EUR</option>
                 </select>
             </div>
-            <div class="border">
+            <div class="col">
                 <button class="btn btn-secondary"
                 id="convertButton" onClick="convert()">Convert</button>
             </div>
         </div>
         <h2 class="mt-2" id="resultArea"></h2>
-        <script src="js/script.js"></script>
+        <p class="author">By Khoi Phan</p>
     </div>
+    
 
+    <script src="js/script.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

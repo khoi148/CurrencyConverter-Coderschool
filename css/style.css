@@ -1,7 +1,13 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
-
+body {
+    background-image: url("https://www.pymnts.com/wp-content/uploads/2019/08/adobe-global-subscription-currency-merchants.jpg");
+}
+.container {
+    background-color: white;
+    border-radius: 5px;
+}
 #convertButton {
     border-radius: 5px;
     width:300px;
@@ -9,4 +15,10 @@
 }
 #convertButton:hover {
     background-color: green;
+}
+
+.author {
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
 }
