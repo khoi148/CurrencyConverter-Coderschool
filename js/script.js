@@ -1,17 +1,29 @@
-function vndToUsd(amountVnd) {
-    let result = amountVnd / exchangeRate;
-    result = Math.round(result * 100) / 100;
-    return result;
+let amountInput = document.getElementById('amount');
+let convertButton = document.getElementById('convertButton');
+let resultArea = document.getElementById('resultArea');
+let currency1 = document.getElementById('currency1');
+let currency2 = document.getElementById('currency2');
+
+convertButton.addEventListener('click', convert);
+// convertButton.addEventListener("mouseover", mouseoverFunction);
+// convertButton.addEventListener("mouseout", mouseoutFunction);
+
+
+function convert(){
+    let amount = amountInput.value;
+    let rate = getRate(currency1.value, currency2.value);
+    // let rate = callApi();
+    let result = amount * rate;
+    
+    initialAmount = formatCurrency(currency1.value.toUpperCase(), amountInput.value); 
+    result = formatCurrency(currency2.value.toUpperCase(), result);
+    resultArea.innerHTML = initialAmount+` in `+currency2.value.toUpperCase()+` is: `+ result;
 }
-function usdToVnd(amountUsd) {
-    let result = amountUsd * exchangeRate;
-    result = Math.round(result * 100) / 100;
+
+function getRate(from, to) {
+    //get conversion rate with two currencies
+    let result = currencies[from][to];
     return result;
-}
-function validateAmount(input){
-    console.log("actual input: "+parseInt(input, 10));
-    console.log("type of input: " + typeof parseInt(input, 10));
-    return isNaN(input);
 }
 function formatCurrency(type, value) {
     const formatter = new Intl.NumberFormat(type, {
@@ -20,75 +32,72 @@ function formatCurrency(type, value) {
     });
     return formatter.format(value);
 }
-
-let returnedFromFunctionCall;
-let amountPrompt;
-
-// const currencyChoice = prompt("Which currency would you like to convert from? (USD or VND)");
-const currencyTo = prompt("Which currency would you like to convert USD to? (VND, KRW, IDR, & EUR");
-
-const krw = 1191;
-const vnd = 23208;
-const idr = 14260;
-const eur = 0.90;
-let exchangeRate = vnd;
-let exchangeSymbol = '';
-
-switch(currencyTo) {
-    case 'VND':
-    case 'vnd':
-        exchangeRate = vnd;
-        exchangeSymbol = 'VND';
-        break;
-    case 'KRW':
-    case 'krw':
-        exchangeRate = krw;
-        exchangeSymbol = 'KRW';
-        break;
-    case 'IDR':
-    case 'idr':
-        exchangeRate = idr;
-        exchangeSymbol = 'IDR';
-        break;
-    case 'EUR':
-    case 'eur':
-        exchangeRate = eur;
-        exchangeSymbol = 'EUR';
-        break;
+function mouseoverFunction() {
+    resultArea.style.color = "red";
+}
+function mouseoutFunction() {
+    resultArea.style.color="blue";
 }
 
-
-
-function convert() {
-    // if(currencyChoice === "USD" || currencyChoice === "usd") {
-    if(currencyTo === 'KRW' || currencyTo === 'krw' ||
-       currencyTo === 'VND' || currencyTo === 'vnd' ||
-       currencyTo === 'IDR' || currencyTo === 'idr' ||
-       currencyTo === 'EUR' || currencyTo === 'eur') {
-        amountPrompt = prompt("How much USD?");
-        if(validateAmount(amountPrompt) === true) {
-            alert("Not a valid number...");
-        } else {
-            returnedFromFunctionCall = usdToVnd(amountPrompt);
-            alert("You converted from USD to "+exchangeSymbol+". Your " +
-            +amountPrompt+ " in USD is " + 
-            formatCurrency(exchangeSymbol, returnedFromFunctionCall) + " in "+exchangeSymbol);
-        }
-    //from vnd to usd
-    // } else if (currencyChoice === "VND" || currencyChoice === "vnd") {
-    //     amountPrompt = prompt("How much VND?");
-    //     if(validateAmount(amountPrompt) === true) {
-    //         alert("Not a valid number...");
-    //     } else {
-    //         returnedFromFunctionCall = vndToUsd(amountPrompt);
-    //         alert("You converted from VND to USD. Your "
-    //         +amountPrompt+ " in VND is " +
-    //         formatCurrency(exchangeSymbol, returnedFromFunctionCall) 
-    //         + " in USD");
-    //     }
-    } else {
-        alert("Currency not recognized...");
-    }
+//API functions to use to get a realtime exchange rate. Given by https://free.currconv.co. 
+//Not free, so API doesn't work after 5 tries
+/*
+async function callApi() {
+    let currRate = `${currency1.value.toUpperCase()}_${currency2.value.toUpperCase()}`; //"USD_VND";
+    let url = `https://free.currconv.com/api/v7/convert?q=${currRate}&compact=ultra&apiKey=7d53f3531d6ca848b188`;
+    let result = await fetch(url);
+    let json = await result.json();
+    updateResults(json);
+    console.log(json[currRate]);
+    return json[currRate];
 }
-// alert("You converted from VND to USD. Your "+mountVNDprompt+ " in VND is " + returnedFromFunctionCall + "in USD");
-convert();
+
+function updateResults(response) {
+  console.log(response);
+} */
+
+//Object Exchange Rates
+
+const usd = {
+    krw: 1194.56,
+    idr: 14209.55,
+    eur: 0.90,
+    vnd: 23214.41,
+    usd: 1
+}
+const krw = {
+    krw: 1,
+    idr: 11.90,
+    eur: 0.00075,
+    vnd: 19.44,
+    usd: 0.00084
+}
+const eur = {
+    krw: 1329.54,
+    idr: 15835.25,
+    eur: 1,
+    vnd: 25845.88,
+    usd: 1.11
+}
+const vnd = {
+    krw: 0.051,
+    idr: 0.61,
+    eur: 0.000039,
+    vnd: 1,
+    usd: 0.000043
+}
+const idr = {
+    krw: 0.084,
+    idr: 1,
+    eur: 0.000063,
+    vnd: 1.63,
+    usd: 0.000070
+}
+//Object that holds references/keys to other currencies
+const currencies = {
+    krw,
+    idr,
+    eur,
+    vnd,
+    usd
+}
